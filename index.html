@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Anny Mike Touch — Luxury Fashion, Handcraft &amp; Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --nude:#F3E7DA;
+    --nude-deep:#E9D7C2;
+    --cream:#FBF6EF;
+    --magenta:#C21E6D;
+    --magenta-deep:#7A0F42;
+    --plum:#3A1420;
+    --plum-soft:#6B3246;
+    --gold:#B6893B;
+    --gold-light:#DCC28A;
+    --line: rgba(58,20,32,0.14);
+    --shadow: rgba(58,20,32,0.10);
+    box-sizing:border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  :root:not([data-theme="light"]){
+    @media (prefers-color-scheme: dark){
+      --nude:#241019;
+      --nude-deep:#1B0C13;
+      --cream:#2D1620;
+      --plum:#F3E3E8;
+      --plum-soft:#D9B9C4;
+      --line: rgba(243,231,218,0.14);
+      --shadow: rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --nude:#241019;
+    --nude-deep:#1B0C13;
+    --cream:#2D1620;
+    --plum:#F3E3E8;
+    --plum-soft:#D9B9C4;
+    --line: rgba(243,231,218,0.14);
+    --shadow: rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth; scroll-padding-top: calc(84px + env(safe-area-inset-top,0px));}
+  body{
+    margin:0;
+    background:var(--nude);
+    color:var(--plum);
+    font-family:'Fraunces', serif;
+    font-optical-sizing:auto;
+    font-weight:400;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img{max-width:100%; display:block;}
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  .nav-font{font-family:'Jost', sans-serif;}
+
+  /* ---------- Decorative ribbon motif (reused once per section, sparingly) ---------- */
+  .ribbon-divider{
+    display:flex; align-items:center; justify-content:center; gap:18px;
+    margin: 0 auto;
+  }
+  .ribbon-divider .stem{height:1px; width:64px; background:var(--gold); opacity:0.7;}
+  .ribbon-divider svg{width:30px; height:16px; opacity:0.85;}
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    padding-top: env(safe-area-inset-top, 0px);
+    background: color-mix(in srgb, var(--nude) 86%, transparent);
+    backdrop-filter: blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 0;
+    gap:24px;
+  }
+  .logo-mark{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:1.28rem;
+    letter-spacing:0.04em;
+    display:flex; align-items:baseline; gap:8px;
+    white-space:nowrap;
+  }
+  .logo-mark .am{
+    font-style:italic;
+    font-weight:600;
+    background:linear-gradient(120deg, var(--gold) 0%, var(--magenta) 55%, var(--gold) 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    font-size:1.5rem;
+  }
+  nav.links{
+    display:flex; gap:30px;
+    font-family:'Jost', sans-serif;
+    font-size:0.76rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    font-weight:500;
+  }
+  nav.links a{
+    position:relative; padding:4px 0; color:var(--plum-soft);
+    transition:color .25s ease;
+  }
+  nav.links a:hover, nav.links a:focus-visible{color:var(--magenta);}
+  nav.links a::after{
+    content:""; position:absolute; left:0; right:0; bottom:-2px; height:1px;
+    background:var(--magenta); transform:scaleX(0); transform-origin:left;
+    transition:transform .3s ease;
+  }
+  nav.links a:hover::after, nav.links a:focus-visible::after{transform:scaleX(1);}
+
+  .nav-actions{display:flex; align-items:center; gap:18px;}
+  .icon-btn{
+    background:none; border:none; cursor:pointer; color:var(--plum);
+    font-family:'Jost', sans-serif; font-size:0.95rem;
+    padding:6px; line-height:1;
+  }
+  .book-btn{
+    font-family:'Jost', sans-serif; font-size:0.72rem; letter-spacing:0.14em;
+    text-transform:uppercase; font-weight:600;
+    padding:11px 22px;
+    background:var(--plum); color:var(--cream);
+    border:1px solid var(--plum);
+    border-radius:1px;
+    transition:background .25s ease, color .25s ease;
+    white-space:nowrap;
+  }
+  .book-btn:hover{background:transparent; color:var(--plum);}
+  .menu-toggle{display:none; background:none; border:none; cursor:pointer;}
+  .menu-toggle span{display:block; width:24px; height:1px; background:var(--plum); margin:6px 0;}
+
+  .mobile-panel{
+    display:none;
+    flex-direction:column;
+    gap:0;
+    padding:8px 0 20px;
+    border-top:1px solid var(--line);
+  }
+  .mobile-panel a{
+    font-family:'Jost', sans-serif; font-size:0.85rem; letter-spacing:0.08em; text-transform:uppercase;
+    padding:14px 0; border-bottom:1px solid var(--line); color:var(--plum-soft);
+  }
+  .mobile-panel.open{display:flex;}
+
+  @media (max-width:980px){
+    nav.links{display:none;}
+    .nav-actions .nav-labels-desktop{display:none;}
+    .menu-toggle{display:block;}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    padding:110px 0 90px;
+    text-align:center;
+    overflow:hidden;
+  }
+  .hero-bg-ribbon{
+    position:absolute; inset:0; z-index:0;
+    display:flex; align-items:center; justify-content:center;
+    opacity:0.5;
+    pointer-events:none;
+  }
+  .hero-bg-ribbon svg{width:min(820px, 140vw); height:auto;}
+  .hero-inner{position:relative; z-index:1;}
+  .hero-eyebrow{
+    font-family:'Jost', sans-serif; font-size:0.78rem; letter-spacing:0.22em;
+    text-transform:uppercase; color:var(--magenta); font-weight:500;
+    margin-bottom:22px;
+    opacity:0; animation: rise .9s ease forwards;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem, 6vw, 4.6rem);
+    line-height:1.08;
+    font-weight:400;
+    margin:0 0 20px;
+    max-width:880px; margin-left:auto; margin-right:auto;
+    opacity:0; animation: rise .9s ease .12s forwards;
+  }
+  .hero h1 em{
+    font-style:italic; font-weight:500;
+    background:linear-gradient(100deg, var(--magenta-deep), var(--magenta) 50%, var(--gold) 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p.sub{
+    font-family:'Jost', sans-serif;
+    font-weight:300;
+    font-size:1.08rem;
+    color:var(--plum-soft);
+    letter-spacing:0.02em;
+    margin:0 auto 42px;
+    max-width:480px;
+    opacity:0; animation: rise .9s ease .24s forwards;
+  }
+  .hero-ctas{
+    display:flex; gap:18px; justify-content:center; flex-wrap:wrap;
+    opacity:0; animation: rise .9s ease .36s forwards;
+  }
+  @keyframes rise{ from{opacity:0; transform:translateY(16px);} to{opacity:1; transform:translateY(0);} }
+  @media (prefers-reduced-motion: reduce){
+    .hero-eyebrow, .hero h1, .hero p.sub, .hero-ctas{ animation:none !important; opacity:1 !important; }
+  }
+
+  .btn{
+    font-family:'Jost', sans-serif; font-size:0.76rem; letter-spacing:0.13em;
+    text-transform:uppercase; font-weight:600;
+    padding:16px 34px;
+    border:1px solid var(--plum);
+    display:inline-block;
+    transition:background .3s ease, color .3s ease, border-color .3s ease;
+  }
+  .btn-solid{background:var(--plum); color:var(--cream);}
+  .btn-solid:hover{background:transparent; color:var(--plum);}
+  .btn-outline{background:transparent; color:var(--plum);}
+  .btn-outline:hover{background:var(--plum); color:var(--cream);}
+  .btn-magenta{border-color:var(--magenta); background:var(--magenta); color:var(--cream);}
+  .btn-magenta:hover{background:transparent; color:var(--magenta);}
+  .btn-magenta-outline{border-color:var(--magenta); color:var(--magenta); background:transparent;}
+  .btn-magenta-outline:hover{background:var(--magenta); color:var(--cream);}
+
+  /* ---------- Section scaffolding ---------- */
+  section{padding:96px 0;}
+  .section-head{max-width:620px; margin:0 auto 56px; text-align:center;}
+  .section-head h2{
+    font-size:clamp(2rem, 3.6vw, 2.8rem);
+    font-weight:400; line-height:1.18; margin:0 0 16px;
+  }
+  .section-head p{
+    font-family:'Jost', sans-serif; font-weight:300; color:var(--plum-soft);
+    font-size:1rem; line-height:1.6; margin:0;
+  }
+  .alt-bg{background:var(--cream);}
+
+  /* ---------- Collections (asymmetric) ---------- */
+  .collections-grid{
+    display:grid;
+    grid-template-columns: 1.3fr 1fr;
+    grid-template-rows:auto auto;
+    gap:22px;
+  }
+  .coll-panel{
+    position:relative;
+    min-height:360px;
+    border-radius:2px;
+    display:flex; align-items:flex-end;
+    padding:32px;
+    overflow:hidden;
+    isolation:isolate;
+  }
+  .coll-panel::before{
+    content:""; position:absolute; inset:0; z-index:-1;
+  }
+  .coll-panel.c1{grid-row:1 / 3; min-height:748px;}
+  .coll-panel.c1::before{background:linear-gradient(155deg, var(--magenta-deep), var(--magenta) 60%, var(--gold) 130%);}
+  .coll-panel.c2::before{background:linear-gradient(155deg, var(--nude-deep), var(--gold-light) 140%);}
+  .coll-panel.c3::before{background:linear-gradient(155deg, var(--plum), var(--plum-soft) 140%);}
+  .coll-tag{
+    font-family:'Jost', sans-serif; font-size:0.7rem; letter-spacing:0.16em; text-transform:uppercase;
+    opacity:0.85; margin-bottom:8px; display:block;
+  }
+  .coll-panel h3{font-size:1.7rem; font-weight:500; margin:0 0 6px;}
+  .coll-panel.c1 *, .coll-panel.c3 *{color:var(--cream);}
+  .coll-panel.c2 *{color:var(--plum);}
+  .coll-panel a.view{
+    font-family:'Jost', sans-serif; font-size:0.74rem; letter-spacing:0.1em;
+    text-transform:uppercase; border-bottom:1px solid currentColor; padding-bottom:3px;
+  }
+  @media (max-width:800px){
+    .collections-grid{grid-template-columns:1fr;}
+    .coll-panel.c1{grid-row:auto; min-height:320px;}
+    .coll-panel{min-height:280px;}
+  }
+
+  /* ---------- Services (six plates) ---------- */
+  .services-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .service-plate{
+    background:var(--nude);
+    padding:46px 34px;
+    transition:background .3s ease;
+  }
+  .service-plate:hover{background:var(--cream);}
+  .service-num{
+    font-family:'Jost', sans-serif; font-size:0.72rem; color:var(--gold); letter-spacing:0.1em;
+    margin-bottom:22px; display:block;
+  }
+  .service-plate h3{font-size:1.32rem; font-weight:500; margin:0 0 10px;}
+  .service-plate p{
+    font-family:'Jost', sans-serif; font-weight:300; font-size:0.92rem; color:var(--plum-soft);
+    line-height:1.6; margin:0 0 18px;
+  }
+  .service-plate a{
+    font-family:'Jost', sans-serif; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--magenta); border-bottom:1px solid transparent; transition:border-color .25s ease;
+  }
+  .service-plate a:hover{border-color:var(--magenta);}
+  @media (max-width:860px){ .services-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:560px){ .services-grid{grid-template-columns:1fr;} }
+
+  /* ---------- Embellishment Atelier ---------- */
+  .atelier{
+    background:var(--plum); color:var(--cream);
+    position:relative; overflow:hidden;
+  }
+  .atelier .wrap{
+    display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;
+  }
+  .bead-field{
+    position:relative; min-height:380px; border-radius:2px;
+    background:
+      radial-gradient(circle at 20% 30%, var(--gold-light) 0 4px, transparent 5px),
+      radial-gradient(circle at 60% 15%, var(--magenta) 0 3px, transparent 4px),
+      radial-gradient(circle at 80% 55%, var(--gold) 0 5px, transparent 6px),
+      radial-gradient(circle at 35% 60%, var(--gold-light) 0 3px, transparent 4px),
+      radial-gradient(circle at 10% 80%, var(--magenta) 0 4px, transparent 5px),
+      radial-gradient(circle at 55% 85%, var(--gold) 0 3px, transparent 4px),
+      radial-gradient(circle at 75% 25%, var(--gold-light) 0 3px, transparent 4px),
+      radial-gradient(circle at 90% 85%, var(--magenta) 0 4px, transparent 5px),
+      radial-gradient(circle at 45% 35%, var(--gold) 0 3px, transparent 4px),
+      radial-gradient(circle at 25% 50%, var(--magenta) 0 3px, transparent 4px);
+    background-color: color-mix(in srgb, var(--plum) 60%, black 10%);
+    border:1px solid rgba(220,194,138,0.3);
+  }
+  .atelier h2{font-size:clamp(1.9rem, 3.4vw, 2.6rem); font-weight:400; margin:0 0 18px;}
+  .atelier p{font-family:'Jost', sans-serif; font-weight:300; color:var(--gold-light); line-height:1.7; margin:0 0 30px; max-width:440px;}
+  @media (max-width:860px){ .atelier .wrap{grid-template-columns:1fr;} .bead-field{min-height:260px;} }
+
+  /* ---------- Academy / Virtual Assistant / Souvenirs — banded rows ---------- */
+  .band{
+    display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:60px;
+  }
+  .band + .band{margin-top:90px;}
+  .band-visual{
+    min-height:300px; border-radius:2px; position:relative; overflow:hidden;
+  }
+  .band-visual span.watermark{
+    position:absolute; font-family:'Fraunces', serif; font-style:italic; font-weight:500;
+    font-size:7rem; opacity:0.12; bottom:-20px; right:10px; color:var(--plum); user-select:none;
+  }
+  .band-academy .band-visual{background:linear-gradient(140deg, var(--nude-deep), var(--cream));}
+  .band-vam .band-visual{background:linear-gradient(140deg, var(--magenta-deep), var(--magenta));}
+  .band-vam .band-visual span.watermark{color:var(--cream);}
+  .band-souv .band-visual{background:linear-gradient(140deg, var(--gold-light), var(--nude-deep));}
+  .band h2{font-size:clamp(1.8rem, 3.2vw, 2.4rem); font-weight:400; margin:0 0 16px; line-height:1.2;}
+  .band p{font-family:'Jost', sans-serif; font-weight:300; color:var(--plum-soft); line-height:1.7; margin:0 0 28px; max-width:420px;}
+  .band-reverse{grid-template-columns:1fr 1fr;}
+  .band-reverse .band-visual{order:2;}
+  @media (max-width:860px){
+    .band, .band-reverse{grid-template-columns:1fr;}
+    .band-reverse .band-visual{order:0;}
+    .band + .band{margin-top:60px;}
+  }
+
+  /* ---------- Lookbook gallery ---------- */
+  .lookbook-grid{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:16px;
+  }
+  .look-tile{
+    aspect-ratio:3/4; border-radius:2px; position:relative; overflow:hidden;
+    display:flex; align-items:flex-end; padding:18px;
+  }
+  .look-tile span{
+    font-family:'Jost', sans-serif; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--cream); opacity:0.9;
+  }
+  .look-tile:nth-child(1){background:linear-gradient(160deg, var(--magenta), var(--magenta-deep));}
+  .look-tile:nth-child(2){background:linear-gradient(160deg, var(--gold), var(--gold-light)); grid-row: span 2; aspect-ratio:auto;}
+  .look-tile:nth-child(2) span{color:var(--plum);}
+  .look-tile:nth-child(3){background:linear-gradient(160deg, var(--plum-soft), var(--plum));}
+  .look-tile:nth-child(4){background:linear-gradient(160deg, var(--nude-deep), var(--gold-light)); }
+  .look-tile:nth-child(4) span{color:var(--plum);}
+  .look-tile:nth-child(5){background:linear-gradient(160deg, var(--magenta-deep), var(--plum));}
+  .look-tile:nth-child(6){background:linear-gradient(160deg, var(--gold-light), var(--magenta));}
+  @media (max-width:860px){
+    .lookbook-grid{grid-template-columns:repeat(2, 1fr);}
+    .look-tile:nth-child(2){grid-row:auto; aspect-ratio:3/4;}
+  }
+
+  /* ---------- Brand story ---------- */
+  .story{
+    text-align:center;
+  }
+  .story .wrap{max-width:720px;}
+  .story h2{font-size:clamp(2rem, 4vw, 2.9rem); font-weight:400; line-height:1.25; margin:0 0 22px;}
+  .story h2 em{font-style:italic; color:var(--magenta);}
+  .story p{font-family:'Jost', sans-serif; font-weight:300; color:var(--plum-soft); line-height:1.8; font-size:1.02rem; margin:0 0 34px;}
+
+  /* ---------- Final CTA ---------- */
+  .final-cta{
+    background:var(--plum); color:var(--cream); text-align:center;
+  }
+  .final-cta h2{font-size:clamp(2.1rem, 4.2vw, 3.2rem); font-weight:400; margin:0 0 30px; line-height:1.2;}
+  .final-cta .hero-ctas{margin-top:0;}
+  .final-cta .btn-outline{border-color:var(--cream); color:var(--cream);}
+  .final-cta .btn-outline:hover{background:var(--cream); color:var(--plum);}
+
+  /* ---------- Footer ---------- */
+  footer{
+    background:var(--nude-deep); padding:70px 0 30px;
+    padding-bottom: calc(30px + env(safe-area-inset-bottom, 0px));
+  }
+  .footer-grid{
+    display:grid; grid-template-columns:1.4fr repeat(4, 1fr); gap:40px;
+    padding-bottom:50px; border-bottom:1px solid var(--line);
+  }
+  .footer-brand .logo-mark{margin-bottom:14px;}
+  .footer-brand p{font-family:'Jost', sans-serif; font-weight:300; color:var(--plum-soft); font-size:0.9rem; line-height:1.7; max-width:260px;}
+  .footer-col h4{
+    font-family:'Jost', sans-serif; font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase;
+    font-weight:600; margin:0 0 18px; color:var(--plum);
+  }
+  .footer-col a{
+    display:block; font-family:'Jost', sans-serif; font-weight:300; font-size:0.88rem;
+    color:var(--plum-soft); margin-bottom:12px; transition:color .2s ease;
+  }
+  .footer-col a:hover{color:var(--magenta);}
+  .newsletter-row{
+    display:flex; gap:10px; margin-top:14px; max-width:320px;
+  }
+  .newsletter-row input{
+    flex:1; min-width:0; padding:11px 14px; border:1px solid var(--line); background:var(--cream);
+    font-family:'Jost', sans-serif; font-size:0.84rem; color:var(--plum); border-radius:1px;
+  }
+  .newsletter-row input:focus-visible{outline:2px solid var(--magenta); outline-offset:1px;}
+  .newsletter-row button{
+    font-family:'Jost', sans-serif; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase;
+    padding:0 18px; background:var(--plum); color:var(--cream); border:none; cursor:pointer;
+  }
+  .newsletter-note{font-family:'Jost', sans-serif; font-size:0.76rem; color:var(--gold); margin-top:10px; min-height:1em;}
+  .footer-bottom{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+    padding-top:26px;
+    font-family:'Jost', sans-serif; font-size:0.78rem; color:var(--plum-soft);
+  }
+  .social-row{display:flex; gap:16px;}
+  .social-row a{border:1px solid var(--line); width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.78rem;}
+  .social-row a:hover{border-color:var(--magenta); color:var(--magenta);}
+  @media (max-width:900px){
+    .footer-grid{grid-template-columns:1fr 1fr; }
+    .footer-brand{grid-column:1 / -1;}
+  }
+  @media (max-width:560px){
+    .footer-grid{grid-template-columns:1fr;}
+  }
+
+  :focus-visible{outline:2px solid var(--magenta); outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav-row">
+    <a href="#top" class="logo-mark"><span class="am">AM</span>Anny Mike Touch</a>
+    <nav class="links">
+      <a href="#top">Home</a>
+      <a href="#collections">Shop</a>
+      <a href="#services">Services</a>
+      <a href="#academy">Academy</a>
+      <a href="#lookbook">Lookbook</a>
+      <a href="#story">Our Story</a>
+      <a href="#journal">Journal</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-btn" aria-label="Search" title="Search">⌕</button>
+      <button class="icon-btn" aria-label="Cart" title="Cart">Bag (0)</button>
+      <a href="#contact" class="book-btn">Book / Order</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="wrap mobile-panel" id="mobilePanel">
+    <a href="#top">Home</a>
+    <a href="#collections">Shop</a>
+    <a href="#services">Services</a>
+    <a href="#academy">Academy</a>
+    <a href="#lookbook">Lookbook</a>
+    <a href="#story">Our Story</a>
+    <a href="#journal">Journal</a>
+    <a href="#contact">Contact</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-ribbon" aria-hidden="true">
+      <svg viewBox="0 0 800 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M60 240C140 60 260 60 300 150C340 240 420 240 460 150C500 60 620 60 700 200" stroke="url(#ribbonGrad)" stroke-width="2.5" stroke-linecap="round"/>
+        <defs>
+          <linearGradient id="ribbonGrad" x1="0" y1="0" x2="800" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#B6893B"/>
+            <stop offset="50%" stop-color="#C21E6D"/>
+            <stop offset="100%" stop-color="#B6893B"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    <div class="wrap hero-inner">
+      <p class="hero-eyebrow">Fashion · Handcraft · Luxury</p>
+      <h1>Where luxury breathes<br> and <em>magic</em> lives.</h1>
+      <p class="sub">Crafted like poetry. Worn in royalty. Each piece carries the hand of its maker, from first thread to final bead.</p>
+      <div class="hero-ctas">
+        <a href="#collections" class="btn btn-solid">Shop Collection</a>
+        <a href="#services" class="btn btn-outline">Explore Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED COLLECTIONS -->
+  <section id="collections">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Featured collections</h2>
+        <p>Three expressions of the house, from fresh arrivals to the pieces made only once.</p>
+      </div>
+      <div class="collections-grid">
+        <div class="coll-panel c1">
+          <div>
+            <span class="coll-tag">The Signature Line</span>
+            <h3>Signature Pieces</h3>
+            <a href="#" class="view">View the edit</a>
+          </div>
+        </div>
+        <div class="coll-panel c2">
+          <div>
+            <span class="coll-tag">Just In</span>
+            <h3>New Arrivals</h3>
+            <a href="#" class="view">Shop new in</a>
+          </div>
+        </div>
+        <div class="coll-panel c3">
+          <div>
+            <span class="coll-tag">Everyday Elegance</span>
+            <h3>Ready-to-Wear</h3>
+            <a href="#" class="view">Shop ready-to-wear</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE DO -->
+  <section id="services" class="alt-bg">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>What we do</h2>
+        <p>A single house, six disciplines — fashion, craft, education and service, held to one standard.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-plate">
+          <span class="service-num">Fashion</span>
+          <h3>Ready-to-Wear</h3>
+          <p>Considered, wearable pieces finished to couture standard, ready to take home the same week.</p>
+          <a href="#collections">Shop the line</a>
+        </div>
+        <div class="service-plate">
+          <span class="service-num">Fashion</span>
+          <h3>Bespoke</h3>
+          <p>One-to-one design and fitting, built around your measurements, your story, your occasion.</p>
+          <a href="#contact">Begin a bespoke order</a>
+        </div>
+        <div class="service-plate">
+          <span class="service-num">Craft</span>
+          <h3>Embellishment</h3>
+          <p>Hand-beading, embroidery and detailing applied by the atelier's needle, stitch by stitch.</p>
+          <a href="#atelier">Explore the atelier</a>
+        </div>
+        <div class="service-plate">
+          <span class="service-num">Education</span>
+          <h3>Academy</h3>
+          <p>Hands-on courses in fashion and embellishment craft, taught by the house's own makers.</p>
+          <a href="#academy">View courses</a>
+        </div>
+        <div class="service-plate">
+          <span class="service-num">Digital</span>
+          <h3>IT Virtual Assistant</h3>
+          <p>Reliable virtual support for modern businesses — inboxes, calendars and admin, handled.</p>
+          <a href="#virtual-assistant">Book a virtual assistant</a>
+        </div>
+        <div class="service-plate">
+          <span class="service-num">Celebration</span>
+          <h3>Souvenirs</h3>
+          <p>Handcrafted keepsakes and favours for weddings, milestones and beautiful occasions.</p>
+          <a href="#souvenirs">Shop souvenirs</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMBELLISHMENT ATELIER -->
+  <section id="atelier" class="atelier">
+    <div class="wrap">
+      <div class="bead-field" role="img" aria-label="Hand-beaded embellishment detailing in gold and magenta"></div>
+      <div>
+        <span class="coll-tag" style="color:var(--gold-light)">The Embellishment Atelier</span>
+        <h2>Every bead, placed by hand.</h2>
+        <p>Inside the atelier, hours of hand-beading and embroidery turn cloth into something ceremonial. No two pieces catch the light the same way twice.</p>
+        <a href="#" class="btn btn-magenta">Explore Embellishment</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACADEMY / VIRTUAL ASSISTANT / SOUVENIRS -->
+  <section>
+    <div class="wrap">
+
+      <div class="band band-academy" id="academy">
+        <div class="band-visual"><span class="watermark">Aa</span></div>
+        <div>
+          <span class="coll-tag" style="color:var(--gold)">Academy</span>
+          <h2>Learn the craft. Build your skill. Create your future.</h2>
+          <p>From beginner stitching to advanced embellishment, our courses are taught in the same atelier where our collections are made.</p>
+          <a href="#" class="btn btn-outline">View Courses</a>
+        </div>
+      </div>
+
+      <div class="band band-reverse band-vam" id="virtual-assistant">
+        <div class="band-visual"><span class="watermark">IT</span></div>
+        <div>
+          <span class="coll-tag" style="color:var(--magenta)">IT Virtual Assistant</span>
+          <h2>Smart digital support for modern businesses.</h2>
+          <p>From inbox management to scheduling and light operations, our virtual assistants keep your business moving with a quiet, dependable touch.</p>
+          <a href="#contact" class="btn btn-magenta-outline">Book a Virtual Assistant</a>
+        </div>
+      </div>
+
+      <div class="band band-souv" id="souvenirs">
+        <div class="band-visual"><span class="watermark">Sv</span></div>
+        <div>
+          <span class="coll-tag" style="color:var(--gold)">Souvenirs</span>
+          <h2>Beautiful details for beautiful moments.</h2>
+          <p>Handcrafted favours and keepsakes for weddings, showers and milestone celebrations — made to be kept, not just given.</p>
+          <a href="#" class="btn btn-outline">Shop Souvenirs</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- LOOKBOOK -->
+  <section id="lookbook" class="alt-bg">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Lookbook</h2>
+        <p>Fashion, embellishment and the clients who wear them, in one gallery.</p>
+      </div>
+      <div class="lookbook-grid">
+        <div class="look-tile"><span>Signature — Look 01</span></div>
+        <div class="look-tile"><span>Embellishment Detail</span></div>
+        <div class="look-tile"><span>Ready-to-Wear — Look 02</span></div>
+        <div class="look-tile"><span>Client Feature</span></div>
+        <div class="look-tile"><span>Bespoke Fitting</span></div>
+        <div class="look-tile"><span>Signature — Look 03</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRAND STORY -->
+  <section id="story" class="story">
+    <div class="wrap">
+      <span class="ribbon-divider" aria-hidden="true">
+        <span class="stem"></span>
+        <svg viewBox="0 0 30 16" fill="none"><path d="M2 2C9 2 11 14 15 14C19 14 21 2 28 2" stroke="#C21E6D" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span class="stem"></span>
+      </span>
+      <h2 style="margin-top:26px;">More than fashion. A <em>touch of creativity</em> in everything we do.</h2>
+      <p>Anny Mike Touch began with a needle, a ribbon, and a belief that craft deserves ceremony. Today the house spans fashion, embellishment, education and service — different disciplines, one standard of care.</p>
+      <a href="#" class="btn btn-solid">Our Story</a>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="wrap">
+      <h2>Ready to experience<br>the Anny Mike Touch?</h2>
+      <div class="hero-ctas">
+        <a href="#collections" class="btn btn-magenta">Shop Now</a>
+        <a href="#contact" class="btn btn-outline">Book a Service</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#top" class="logo-mark"><span class="am">AM</span>Anny Mike Touch</a>
+        <p>A luxury house of fashion, handcraft and service — ready-to-wear, bespoke, embellishment, academy, digital support and souvenirs, under one roof.</p>
+        <div class="newsletter-row" role="group" aria-label="Newsletter signup">
+          <label for="newsletterEmail" class="visually-hidden" style="position:absolute;left:-9999px;">Email address</label>
+          <input type="email" id="newsletterEmail" placeholder="Your email address" required>
+          <button type="button" id="newsletterBtn">Join</button>
+        </div>
+        <p class="newsletter-note" id="newsletterNote"></p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="#collections">New Arrivals</a>
+        <a href="#collections">Ready-to-Wear</a>
+        <a href="#collections">Signature Pieces</a>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="#services">Bespoke</a>
+        <a href="#atelier">Embellishment</a>
+        <a href="#virtual-assistant">Virtual Assistant</a>
+        <a href="#souvenirs">Souvenirs</a>
+      </div>
+      <div class="footer-col">
+        <h4>House</h4>
+        <a href="#academy">Academy</a>
+        <a href="#lookbook">Lookbook</a>
+        <a href="#story">Our Story</a>
+        <a href="#journal">Journal</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="https://wa.me/00000000000">WhatsApp</a>
+        <a href="mailto:hello@annymiketouch.com">hello@annymiketouch.com</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Anny Mike Touch. All rights reserved.</span>
+      <div class="social-row">
+        <a href="#" aria-label="Instagram" title="Instagram">IG</a>
+        <a href="#" aria-label="TikTok" title="TikTok">TT</a>
+        <a href="#" aria-label="Facebook" title="Facebook">FB</a>
+        <a href="#" aria-label="Pinterest" title="Pinterest">PT</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const menuToggle = document.getElementById('menuToggle');
+  const mobilePanel = document.getElementById('mobilePanel');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mobilePanel.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  mobilePanel.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobilePanel.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  const newsletterBtn = document.getElementById('newsletterBtn');
+  const newsletterEmail = document.getElementById('newsletterEmail');
+  const newsletterNote = document.getElementById('newsletterNote');
+  newsletterBtn.addEventListener('click', () => {
+    const val = newsletterEmail.value.trim();
+    const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+    if(!valid){
+      newsletterNote.textContent = 'Please enter a valid email address.';
+      return;
+    }
+    newsletterNote.textContent = 'Thank you — you\u2019re on the list.';
+    newsletterEmail.value = '';
+  });
+</script>
+
+</body>
+</html>
